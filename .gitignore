@@ -1,0 +1,67 @@
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE/Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Temporary Files
+*.tmp
+*.temp
+*.cache
+
+# Archive Files
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# Node modules (if you add npm later)
+node_modules/
+package-lock.json
+
+# Build/Distribution
+dist/
+build/
+
+# Environment Variables
+.env
+.env.local
+
+# Chrome Extension Store Assets
+store-assets/
+screenshots/
+promotional/
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Setup/Documentation (not for public repo)
+SETUP_GITHUB.md
+
+# Mac Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Transify - Real-Time Chat Translation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 380px;
+        min-height: 500px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #333;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .header h1 {
+        color: white;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 5px;
+      }
+
+      .header p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 12px;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .toggle-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .toggle-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .toggle-label {
+        font-weight: 500;
+        font-size: 14px;
+        color: #333;
+      }
+
+      .toggle {
+        position: relative;
+        width: 50px;
+        height: 26px;
+      }
+
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 26px;
+      }
+
+      .slider:before {
+        position: absolute;
+        content: '';
+        height: 20px;
+        width: 20px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+
+      input:checked + .slider {
+        background-color: #667eea;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(24px);
+      }
+
+      .language-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .language-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+      }
+
+      .language-row:last-child {
+        margin-bottom: 0;
+      }
+
+      select {
+        padding: 8px 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 13px;
+        background: white;
+        cursor: pointer;
+        transition: border-color 0.3s;
+        width: 130px;
+      }
+
+      select:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .api-section {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type='url'] {
+        width: 100%;
+        padding: 10px 12px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        font-size: 13px;
+        margin-top: 10px;
+        transition: border-color 0.3s;
+      }
+
+      input[type='url']:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .status {
+        padding: 15px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .status.active {
+        background: rgba(76, 175, 80, 0.1);
+        border: 2px solid #4caf50;
+      }
+
+      .status.inactive {
+        background: rgba(244, 67, 54, 0.1);
+        border: 2px solid #f44336;
+      }
+
+      .status-text {
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .status.active .status-text {
+        color: #2e7d32;
+      }
+
+      .status.inactive .status-text {
+        color: #c62828;
+      }
+
+      .footer {
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        text-align: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .footer p {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+      }
+
+      .platforms {
+        display: flex;
+        justify-content: space-around;
+        margin: 10px 0;
+      }
+
+      .platform {
+        padding: 5px 10px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .shortcut-hint {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 12px;
+        padding: 15px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .shortcut-hint h4 {
+        font-size: 13px;
+        color: #333;
+        margin-bottom: 8px;
+      }
+
+      .shortcut-hint p {
+        font-size: 11px;
+        color: #666;
+        line-height: 1.4;
+      }
+
+      .kbd {
+        background: #f5f5f5;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        padding: 2px 5px;
+        font-family: monospace;
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🌐 Transify</h1>
+      <p>An extension for real-time chat translation</p>
+      <div class="platforms">
+        <div class="platform">WhatsApp</div>
+        <div class="platform">Telegram</div>
+        <div class="platform">Discord</div>
+        <div class="platform">Slack</div>
+        <div class="platform">Messenger</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="status" id="status">
+        <div class="status-text" id="statusText">Checking status...</div>
+      </div>
+
+      <div class="toggle-section">
+        <div class="toggle-row">
+          <span class="toggle-label">🚀 Enable Translation</span>
+          <label class="toggle">
+            <input type="checkbox" id="enableTranslation" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">📥 Auto-translate incoming</span>
+          <label class="toggle">
+            <input type="checkbox" id="autoIncoming" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">📤 Auto-translate outgoing</span>
+          <label class="toggle">
+            <input type="checkbox" id="autoOutgoing" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="language-section">
+        <div class="section-title">🗣️ Language Settings</div>
+        <div class="language-row">
+          <span>From:</span>
+          <select id="fromLang">
+            <option value="auto">Auto-detect</option>
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+            <option value="pt">Portuguese</option>
+            <option value="ru">Russian</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="zh">Chinese (Simplified)</option>
+            <option value="zt">Chinese (Traditional)</option>
+            <option value="ar">Arabic</option>
+            <option value="hi">Hindi</option>
+            <option value="tr">Turkish</option>
+            <option value="pl">Polish</option>
+            <option value="nl">Dutch</option>
+            <option value="mr">Marathi</option>
+            <option value="bn">Bengali</option>
+            <option value="ur">Urdu</option>
+          </select>
+        </div>
+        <div class="language-row">
+          <span>To:</span>
+          <select id="toLang">
+            <option value="en">English</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="de">German</option>
+            <option value="it">Italian</option>
+            <option value="pt">Portuguese</option>
+            <option value="ru">Russian</option>
+            <option value="ja">Japanese</option>
+            <option value="ko">Korean</option>
+            <option value="zh">Chinese (Simplified)</option>
+            <option value="zt">Chinese (Traditional)</option>
+            <option value="ar">Arabic</option>
+            <option value="hi">Hindi</option>
+            <option value="tr">Turkish</option>
+            <option value="pl">Polish</option>
+            <option value="nl">Dutch</option>
+            <option value="mr">Marathi</option>
+            <option value="bn">Bengali</option>
+            <option value="ur">Urdu</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Transify - Real-Time Chat Translation</p>
+      <p style="margin-top: 8px; font-size: 10px">
+        Developed by <strong>Karam Sayed</strong> © 2025
+      </p>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

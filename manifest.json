@@ -1,0 +1,78 @@
+{
+  "manifest_version": 3,
+  "name": "Transify - An extension for real-time chat translation",
+  "version": "1.0.0",
+  "description": "An extension for real-time chat translation on WhatsApp Web and other messaging platforms",
+
+  "permissions": [
+    "storage",
+    "activeTab",
+    "contextMenus",
+    "notifications",
+    "scripting"
+  ],
+
+  "host_permissions": [
+    "https://web.whatsapp.com/*",
+    "https://web.telegram.org/*",
+    "https://discord.com/*",
+    "https://slack.com/*",
+    "https://teams.microsoft.com/*",
+    "https://messenger.com/*",
+    "https://www.messenger.com/*",
+    "https://facebook.com/*",
+    "https://www.facebook.com/*",
+    "https://libretranslate.com/*",
+    "https://libretranslate.de/*",
+    "https://translate.argosopentech.com/*",
+    "https://api.mymemory.translated.net/*"
+  ],
+
+  "background": {
+    "service_worker": "background-minimal.js"
+  },
+
+  "content_scripts": [
+    {
+      "matches": [
+        "https://web.whatsapp.com/*",
+        "https://web.telegram.org/*",
+        "https://discord.com/*",
+        "https://slack.com/*",
+        "https://teams.microsoft.com/*",
+        "https://messenger.com/*",
+        "https://www.messenger.com/*",
+        "https://facebook.com/*",
+        "https://www.facebook.com/*"
+      ],
+      "js": ["content-full.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Transify - An extension for real-time chat translation",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": ["content.css"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
