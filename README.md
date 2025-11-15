@@ -146,7 +146,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## � Research Paper
+## 📜 Research Paper
 
 This project is documented in a research paper published in IRJMETS:
 
