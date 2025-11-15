@@ -3,11 +3,8 @@
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Extension-blue?logo=googlechrome)](https://chrome.google.com)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Research Paper](https://img.shields.io/badge/Research-Paper-orange.svg)](https://www.irjmets.com/upload_newfiles/irjmets71100002259/paper_file/irjmets71100002259.pdf)
 
 **Transify** is an extension for real-time chat translation that works seamlessly with messaging platforms like WhatsApp Web, Telegram, Discord, Slack, Microsoft Teams, and more!
-
-> 📄 **Published Research**: This project is based on research published in IRJMETS. [Read the full paper here](https://www.irjmets.com/upload_newfiles/irjmets71100002259/paper_file/irjmets71100002259.pdf).
 
 ---
 
@@ -146,23 +143,18 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Thanks to all open-source translation API providers
 - Chrome Extension community for their valuable resources
 - All contributors and users of Transify
-- IRJMETS for publishing our research paper
 
 ---
 
-## 📄 Citation
+## � Research Paper
 
-If you use this project in your research or work, please cite:
+This project is documented in a research paper published in IRJMETS:
 
-```
-Transify - An Extension for Real-Time Chat Translation
-Published in: International Research Journal of Modernization in Engineering Technology and Science (IRJMETS)
-Available at: https://www.irjmets.com/upload_newfiles/irjmets71100002259/paper_file/irjmets71100002259.pdf
-```
+📑 **[Read the Full Paper](https://www.irjmets.com/upload_newfiles/irjmets71100002259/paper_file/irjmets71100002259.pdf)**
 
 ---
 
-## 📞 Support
+## �📞 Support
 
 If you encounter any issues or have questions:
 
